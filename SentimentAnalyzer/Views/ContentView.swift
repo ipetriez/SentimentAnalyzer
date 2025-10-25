@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 ScrollView {
-                    Text("Chart")
+                    ResponcePieChart(responses: responses)
                     Text("Overview")
                     
                     ForEach(responses) { response in
