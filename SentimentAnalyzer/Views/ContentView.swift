@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var responseText: String = ""
+    @State private var responses = [Response]()
+    let scorer = Scorer()
     
     var body: some View {
         NavigationStack {
@@ -17,8 +19,9 @@ struct ContentView: View {
                     Text("Chart")
                     Text("Overview")
                     
-                    ForEach(0 ..< 10) { response in
-                        Text("Response")
+                    ForEach(responses) { response in
+                        ResponseRowView(response: response)
+                            .padding(.horizontal)
                     }
                 }
                 HStack {
@@ -34,13 +37,40 @@ struct ContentView: View {
                     }
                     
                     Button("Done") {
-                        
+                        doneButtonTap()
                     }
                     .fontWeight(.semibold)
                 }
                 .padding()
             }
+            .background(Color(.systemGroupedBackground))
         }
+        .task {
+            for response in Response.sampleResponses {
+                saveResponse(response)
+            }
+        }
+    }
+    
+    private func saveResponse(_ response: String, atTop: Bool = false) {
+        let score = scorer.score(response)
+        let response = Response(
+            id: UUID().uuidString,
+            text: response,
+            score: score
+        )
+        
+        if atTop {
+            responses.insert(response, at: 0)
+        } else {
+            responses.append(response)
+        }
+    }
+    
+    private func doneButtonTap() {
+        guard !responseText.isEmpty else { return }
+        saveResponse(responseText, atTop: true)
+        responseText = ""
     }
 }
 

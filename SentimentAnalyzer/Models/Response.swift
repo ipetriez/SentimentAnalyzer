@@ -11,6 +11,7 @@ struct Response: Identifiable {
     let id: String
     let text: String
     let score: Double
+    var sentiment: Sentiment { Sentiment(score) }
     
     static let sampleResponses: [String] = [
         "The future of AI makes me excited. Let it handle repetitive tasks so developers can focus on creating innovative solutions.",
