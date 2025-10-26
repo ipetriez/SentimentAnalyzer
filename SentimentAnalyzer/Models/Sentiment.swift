@@ -8,10 +8,8 @@
 import SwiftUI
 import Charts
 
-enum Sentiment: String, Plottable {
-    case positive = "Positive"
-    case moderate = "Moderate"
-    case negative = "Negative"
+enum Sentiment: String, Plottable, CaseIterable, Identifiable {
+    case positive, moderate, negative
     
     init(_ score: Double) {
         if score > 0.2 {
@@ -21,6 +19,12 @@ enum Sentiment: String, Plottable {
         } else {
             self = .moderate
         }
+    }
+    
+    var id: String { rawValue }
+    
+    var name: String {
+        self.rawValue.capitalized
     }
     
     var icon: String {

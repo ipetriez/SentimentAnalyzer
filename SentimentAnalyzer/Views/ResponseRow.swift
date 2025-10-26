@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ResponseRowView: View {
+struct ResponseRow: View {
     let response: Response
     
     var body: some View {
@@ -29,7 +29,7 @@ struct ResponseRowView: View {
 }
 
 #Preview {
-    ResponseRowView(
+    ResponseRow(
         response: Response(
             id: UUID().uuidString,
             text: Response.sampleResponses[0],

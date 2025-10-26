@@ -17,10 +17,10 @@ struct ContentView: View {
             VStack {
                 ScrollView {
                     ResponcePieChart(responses: responses)
-                    Text("Overview")
+                    SentimentsSummarySection(responses: responses)
                     
                     ForEach(responses) { response in
-                        ResponseRowView(response: response)
+                        ResponseRow(response: response)
                             .padding(.horizontal)
                     }
                 }
